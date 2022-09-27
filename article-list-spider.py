@@ -6,7 +6,6 @@ import requests
 from lxml import etree
 from zhon.hanzi import punctuation
 from typing import List
-import pathlib
 
 NEWS_TITLES_XPATH = '//li/div[@class="news-item-content"]/h3/a/text()'
 NEWS_CITATION_XPATH = '//li/div[@class="news-item-content"]/p/text()'
@@ -24,10 +23,6 @@ def remove_punctuation(string: str) -> str:
     for i in punctuation:
         result = result.replace(i, '')
     return result.replace(' ', '').replace(' ', '')
-
-
-def fix_content_url(content: str):
-    return content.replace("/d/file", "https://zzkpnews.com/d/file")
 
 
 def create_uuids(count: int) -> List[str]:
@@ -94,14 +89,6 @@ def collect_list(urlTemplate: str):
 
     return collection
 
-
-def dump_to_article_file(collection: List):
-    for i in collection:
-        with open('./articles/{articleId}'.format(articleId=i['id']), "w", encoding='UTF-8') as f:
-            f.write(fix_content_url(get_article_content(i['url'])))
-    f.close()
-    print("写入到文章文件完成！")
-
 def dump_to_json_file(collection: List, path: str):
     with open(path, "w", encoding='UTF-8') as f:
         if(json.dump(collection, f, indent=2, sort_keys=True, ensure_ascii=False) != None):
@@ -114,4 +101,3 @@ def dump_to_json_file(collection: List, path: str):
 if __name__ == "__main__":
     data = collect_list(AJAX_URL)
     dump_to_json_file(data, "./data/all-articles-list.json")
-    dump_to_article_file(data)
