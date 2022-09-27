@@ -9,8 +9,6 @@ from typing import List
 import random
 import pymysql
 
-# http://channel.chinanews.com.cn/video/cns/vcl/sh.shtml?&pager=7&pagenum=3&t=11_6
-
 url = 'http://channel.chinanews.com.cn/video/cns/vcl/sh.shtml?&pager=1&pagenum=800&t=11_6'
 
 
@@ -83,5 +81,5 @@ def dump_to_json_file(collection, path):
                     sort_keys=True, ensure_ascii=False))
     print("写入完成！")
 
-
-dump_to_json_file(collected_list, './data/all-videos-list.json')
+if __name__ == "__main__":
+    dump_to_json_file(collected_list, './data/all-videos-list.json')
