@@ -31,7 +31,7 @@ def remove_punctuation(string: str) -> str:
 def create_uuids(count: int) -> List[str]:
     result: List[str] = []
     for i in range(0, count):
-        result.append(str(uuid.uuid4()).replace('-', ''))
+        result.append(str(uuid.uuid1()).replace('-', ''))
     return result
 
 
@@ -62,6 +62,7 @@ def get_timestamp(timestr: str) -> str:
 
 
 def collect_list(urlTemplate: str):
+    print('开始抓取文章列表数据')
     collection = []
     for i in range(0, PAGE_COUNT):
         sub_list = requests.get(urlTemplate.format(pagenum=i))
@@ -89,7 +90,7 @@ def collect_list(urlTemplate: str):
                 "bgimg":  fix_url(imgs[j]),
                 "author": "中原科技网旧站整理"
             })
-
+    print('文章列表抓取完成')
     return collection
 
 def dump_to_json_file(collection: List, path: str):

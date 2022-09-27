@@ -23,7 +23,7 @@ def get_column_name() -> str:
 
 
 def create_uuid() -> str:
-    return (str(uuid.uuid4()).replace('-', ''))
+    return (str(uuid.uuid1()).replace('-', ''))
 
 
 def remove_punctuation(string: str) -> str:
@@ -56,27 +56,27 @@ def get_video_url(url: str):
     endIndex = content.index(endStr, startIndex)
     return content[startIndex:endIndex]
 
-
-rawdata_list = json.loads(fix_rawdata(requests.get(url).text))['docs']
-
-collected_list = []
-
-for i in rawdata_list:
-    collected_list.append({
-        "subtitle": None,
-        "leadTitle": None,
-        "id": create_uuid(),
-        "title": i['title'],
-        "url": i['url'],
-        "citation": i['content'],
-        "columnName": get_column_name(),
-        "keywords": get_tags(i['title']),
-        "time": fix_time(i['pubtime']),
-        "bgimg":  i['img_cns'],
-        "author": "中国新闻网视频站",
-        "videoUrl": get_video_url(i['url'])
-    })
-
+def collect_list():
+    collected_list = []
+    rawdata_list = json.loads(fix_rawdata(requests.get(url).text))['docs']
+    print('开始抓取视频列表数据')
+    for i in rawdata_list:
+        collected_list.append({
+            "subtitle": None,
+            "leadTitle": None,
+            "id": create_uuid(),
+            "title": i['title'],
+            "url": i['url'],
+            "citation": i['content'],
+            "columnName": get_column_name(),
+            "keywords": get_tags(i['title']),
+            "time": fix_time(i['pubtime']),
+            "bgimg":  i['img_cns'],
+            "author": "中国新闻网视频站",
+            "videoUrl": get_video_url(i['url'])
+        })
+    print('视频列表数据抓取完成')
+    return collected_list
 
 def dump_to_json_file(collection, path):
     with open(path, "w", encoding='UTF-8') as f:
@@ -89,4 +89,5 @@ def dump_to_json_file(collection, path):
 if __name__ == "__main__":
     if not os.path.isdir("./data"):
         os.makedirs("./data")
-    dump_to_json_file(collected_list, './data/all-videos-list.json')
+    list = collect_list()
+    dump_to_json_file(list, './data/all-videos-list.json')
