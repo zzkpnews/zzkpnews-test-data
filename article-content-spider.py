@@ -24,7 +24,7 @@ def dump_to_article_file(collection: List):
     if not os.path.isdir("./articles"):
         os.makedirs("./articles")
     for i in collection:
-        with open('./articles/{articleId}'.format(articleId=i['id']), "w", encoding='UTF-8') as f:
+        with open('./articles/{articleId}.html'.format(articleId=i['id']), "w", encoding='UTF-8') as f:
             f.write(fix_content_url(get_article_content(i['url'])))
     f.close()
     print("写入到文章文件完成！")
