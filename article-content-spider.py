@@ -2,6 +2,7 @@ import json
 from typing import List
 import requests
 from lxml import etree
+import os
 
 ARTICLE_CONTENT_XPATH = "//html/body/div[@class='main-container']/div[@class='main-content']/div[@class='content-content']"
 
@@ -20,6 +21,8 @@ def fix_content_url(content: str):
     return content.replace("/d/file", "https://zzkpnews.com/d/file")
 
 def dump_to_article_file(collection: List):
+    if not os.path.isdir("./articles"):
+        os.makedirs("./articles")
     for i in collection:
         with open('./articles/{articleId}'.format(articleId=i['id']), "w", encoding='UTF-8') as f:
             f.write(fix_content_url(get_article_content(i['url'])))

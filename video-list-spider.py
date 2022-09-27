@@ -7,9 +7,12 @@ from lxml import etree
 from zhon.hanzi import punctuation
 from typing import List
 import random
-import pymysql
+import os
 
-url = 'http://channel.chinanews.com.cn/video/cns/vcl/sh.shtml?&pager=1&pagenum=800&t=11_6'
+PAGENUM = 800
+
+url = 'http://channel.chinanews.com.cn/video/cns/vcl/sh.shtml?&pager=1&pagenum={page_num}&t=11_6'.format(
+    page_num=PAGENUM)
 
 
 def get_column_name() -> str:
@@ -21,6 +24,7 @@ def get_column_name() -> str:
 
 def create_uuid() -> str:
     return (str(uuid.uuid4()).replace('-', ''))
+
 
 def remove_punctuation(string: str) -> str:
     result = string
@@ -41,14 +45,15 @@ def fix_rawdata(string: str) -> str:
     return string.replace('\n', '').replace('\r', '').replace(
         ';newslist = specialcnsdata;', '').replace('specialcnsdata =', '')
 
-def get_video_url(url:str):
+
+def get_video_url(url: str):
     content = requests.get(url).text
     startStr = 'so.addVariable("vInfo", "'
     endStr = '")'
     startIndex = content.index(startStr)
     if startIndex >= 0:
         startIndex += len(startStr)
-    endIndex = content.index(endStr,startIndex)
+    endIndex = content.index(endStr, startIndex)
     return content[startIndex:endIndex]
 
 
@@ -57,7 +62,6 @@ rawdata_list = json.loads(fix_rawdata(requests.get(url).text))['docs']
 collected_list = []
 
 for i in rawdata_list:
-    print(i['url'])
     collected_list.append({
         "subtitle": None,
         "leadTitle": None,
@@ -70,7 +74,7 @@ for i in rawdata_list:
         "time": fix_time(i['pubtime']),
         "bgimg":  i['img_cns'],
         "author": "中国新闻网视频站",
-        "videoUrl":get_video_url(i['url'])
+        "videoUrl": get_video_url(i['url'])
     })
 
 
@@ -81,5 +85,8 @@ def dump_to_json_file(collection, path):
                     sort_keys=True, ensure_ascii=False))
     print("写入完成！")
 
+
 if __name__ == "__main__":
+    if not os.path.isdir("./data"):
+        os.makedirs("./data")
     dump_to_json_file(collected_list, './data/all-videos-list.json')

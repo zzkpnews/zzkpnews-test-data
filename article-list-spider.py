@@ -6,6 +6,7 @@ import requests
 from lxml import etree
 from zhon.hanzi import punctuation
 from typing import List
+import os
 
 NEWS_TITLES_XPATH = '//li/div[@class="news-item-content"]/h3/a/text()'
 NEWS_CITATION_XPATH = '//li/div[@class="news-item-content"]/p/text()'
@@ -17,6 +18,8 @@ NEWS_IMGS_XPATH = '//li/a/img/@src'
 ARTICLE_CONTENT_XPATH = "//html/body/div[@class='main-container']/div[@class='main-content']/div[@class='content-content']"
 
 AJAX_URL = "https://www.zzkpnews.com/e/more/loadmore.php?tid=0&page={pagenum}"
+
+PAGE_COUNT = 86
 
 def remove_punctuation(string: str) -> str:
     result = string
@@ -60,7 +63,7 @@ def get_timestamp(timestr: str) -> str:
 
 def collect_list(urlTemplate: str):
     collection = []
-    for i in range(0, 3):
+    for i in range(0, PAGE_COUNT):
         sub_list = requests.get(urlTemplate.format(pagenum=i))
         tree = etree.HTML(sub_list.text)
 
@@ -100,4 +103,6 @@ def dump_to_json_file(collection: List, path: str):
 
 if __name__ == "__main__":
     data = collect_list(AJAX_URL)
+    if not os.path.isdir("./data"):
+        os.makedirs("./data")
     dump_to_json_file(data, "./data/all-articles-list.json")
