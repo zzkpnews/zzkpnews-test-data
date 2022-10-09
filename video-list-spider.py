@@ -17,7 +17,7 @@ url = 'http://channel.chinanews.com.cn/video/cns/vcl/sh.shtml?&pager=1&pagenum={
 
 def get_column_name() -> str:
     column_names = ['科技', '要闻', '自然', '社会', '生命', '安全', '学术', '文化',
-                    '教育', '融创', '美学', '乡村', '时尚', '企业', '纪实', '摄影', '推介', '科普']
+                    '教育', '融创', '美学', '乡村', '企业', '纪实', '摄影', '推介', '科普']
     list_len = len(column_names)-1
     return column_names[random.randint(0, list_len)]
 
@@ -64,7 +64,7 @@ def collect_list():
         collected_list.append({
             "subtitle": None,
             "lead_title": None,
-            "id": create_uuid(),
+            "item_id": create_uuid(),
             "title": i['title'],
             "url": i['url'],
             "citation": i['content'],
