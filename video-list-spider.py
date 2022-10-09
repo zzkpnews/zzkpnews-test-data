@@ -25,6 +25,10 @@ def get_column_name() -> str:
 def create_uuid() -> str:
     return (str(uuid.uuid1()).replace('-', ''))
 
+def get_creator_id() ->str:
+    column_names = ['zzkpnews','prinorange','microsoft','dragonbook','apple','starbucks']
+    list_len = len(column_names)-1
+    return column_names[random.randint(0, list_len)]
 
 def remove_punctuation(string: str) -> str:
     result = string
@@ -73,7 +77,8 @@ def collect_list():
             "time": fix_time(i['pubtime']),
             "bgimg":  i['img_cns'],
             "author": "中国新闻网视频站",
-            "video_url": get_video_url(i['url'])
+            "video_url": get_video_url(i['url']),
+            'creator_id':get_creator_id(),
         })
     print('视频列表数据抓取完成')
     return collected_list

@@ -32,7 +32,7 @@ column_id_map = {
 }
 
 sql_insert_to_newsitem = """INSERT INTO news_items(news_id, creator_id, column_id, timestamp, title, citation, bgimg, keywords)
-VALUES ('{item_id}','zzkpnews','{column_id}','{item_timestamp}','{item_title}','{item_citation}','{item_bgimg}','{item_keywords}')"""
+VALUES ('{item_id}','{creator_id}','{column_id}','{item_timestamp}','{item_title}','{item_citation}','{item_bgimg}','{item_keywords}')"""
 
 
 sql_insert_to_videos = """INSERT INTO videos(video_id, author, video_url, origin, origin_url) VALUES ('{video_id}','{author}','{video_url}','中国新闻网视频站','{origin_url}')"""
@@ -51,7 +51,7 @@ list = load_video_list()
 try:
     for item in list:
         cursor.execute(sql_insert_to_newsitem.format(
-            item_id=item['item_id'], item_timestamp=item['time'], item_title=item['title'],column_id=column_id_map[item['column_title']],
+            item_id=item['item_id'], creator_id=item['creator_id'],item_timestamp=item['time'], item_title=item['title'],column_id=column_id_map[item['column_title']],
             item_citation=item['citation'], item_bgimg=item['bgimg'], item_keywords=item['keywords']),
         )
     db.commit()

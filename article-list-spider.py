@@ -7,6 +7,7 @@ from lxml import etree
 from zhon.hanzi import punctuation
 from typing import List
 import os
+import random
 
 NEWS_TITLES_XPATH = '//li/div[@class="news-item-content"]/h3/a/text()'
 NEWS_CITATION_XPATH = '//li/div[@class="news-item-content"]/p/text()'
@@ -27,6 +28,10 @@ def remove_punctuation(string: str) -> str:
         result = result.replace(i, '')
     return result.replace(' ', '').replace(' ', '')
 
+def get_creator_id() ->str:
+    column_names = ['zzkpnews','prinorange','microsoft','dragonbook','apple','starbucks']
+    list_len = len(column_names)-1
+    return column_names[random.randint(0, list_len)]
 
 def create_uuids(count: int) -> List[str]:
     result: List[str] = []
@@ -88,7 +93,8 @@ def collect_list(urlTemplate: str):
                 "keywords": get_tags(titles[j]),
                 "time": get_timestamp(times[j]),
                 "bgimg":  fix_url(imgs[j]),
-                "author": "中原科技网旧站整理"
+                "author": "中原科技网旧站整理",
+                'creator_id':get_creator_id(),
             })
     print('文章列表抓取完成')
     return collection
