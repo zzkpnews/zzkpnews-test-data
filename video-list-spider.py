@@ -63,17 +63,17 @@ def collect_list():
     for i in rawdata_list:
         collected_list.append({
             "subtitle": None,
-            "leadTitle": None,
+            "lead_title": None,
             "id": create_uuid(),
             "title": i['title'],
             "url": i['url'],
             "citation": i['content'],
-            "columnName": get_column_name(),
+            "column_title": get_column_name(),
             "keywords": get_tags(i['title']),
             "time": fix_time(i['pubtime']),
             "bgimg":  i['img_cns'],
             "author": "中国新闻网视频站",
-            "videoUrl": get_video_url(i['url'])
+            "video_url": get_video_url(i['url'])
         })
     print('视频列表数据抓取完成')
     return collected_list
