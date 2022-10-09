@@ -31,10 +31,8 @@ column_id_map = {
     '其他': 'other',
 }
 
-sql_insert_to_newsitem = """INSERT INTO news_items(item_id, timestamp, title, citation, bgimg, keywords)
-VALUES ('{item_id}','{item_timestamp}','{item_title}','{item_citation}','{item_bgimg}','{item_keywords}')"""
-
-sql_insert_to_column_contents = """INSERT INTO columns_content(id, column_id, item_id) VALUES ('{id}','{column_id}','{item_id}')"""
+sql_insert_to_newsitem = """INSERT INTO news_items(item_id, creator_id, column_id, timestamp, title, citation, bgimg, keywords)
+VALUES ('{item_id}','zzkpnews','{column_id}','{item_timestamp}','{item_title}','{item_citation}','{item_bgimg}','{item_keywords}')"""
 
 sql_insert_to_articles = """INSERT INTO articles(article_id, author, origin, origin_url) VALUES ('{article_id}','{author}','中原科技网旧站','{origin_url}')"""
 
@@ -52,18 +50,9 @@ list = load_article_list()
 try:
     for item in list:
         cursor.execute(sql_insert_to_newsitem.format(
-            item_id=item['item_id'], item_timestamp=item['time'], item_title=item['title'],
+            item_id=item['item_id'], item_timestamp=item['time'], item_title=item['title'],column_id=column_id_map[item['column_title']],
             item_citation=item['citation'], item_bgimg=item['bgimg'], item_keywords=item['keywords']),
         )
-    db.commit()
-except Exception as e:
-    print(e)
-    db.rollback()
-
-try:
-    for item in list:
-        cursor.execute(sql_insert_to_column_contents.format(id=str(uuid.uuid4(
-        )), column_id=column_id_map[item['column_title']], item_id=item['item_id']))
     db.commit()
 except Exception as e:
     print(e)
