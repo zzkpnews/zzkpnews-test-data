@@ -79,12 +79,12 @@ def collect_list(urlTemplate: str):
         for j in range(0, len(titles)):
             collection.append({
                 "subtitle": None,
-                "leadTitle": None,
-                "id": ids[j],
+                "lead_title": None,
+                "item_id": ids[j],
                 "title": titles[j],
                 "url": fix_url(page_urls[j]),
                 "citation": citations[j],
-                "columnName": columnNames[j],
+                "column_title": columnNames[j],
                 "keywords": get_tags(titles[j]),
                 "time": get_timestamp(times[j]),
                 "bgimg":  fix_url(imgs[j]),

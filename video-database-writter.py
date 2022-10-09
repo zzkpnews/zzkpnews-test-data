@@ -31,7 +31,7 @@ column_id_map = {
     '其他': 'other',
 }
 
-sql_insert_to_newsitem = """INSERT INTO news_items(item_id, creator_id, column_id, timestamp, title, citation, bgimg, keywords)
+sql_insert_to_newsitem = """INSERT INTO news_items(news_id, creator_id, column_id, timestamp, title, citation, bgimg, keywords)
 VALUES ('{item_id}','zzkpnews','{column_id}','{item_timestamp}','{item_title}','{item_citation}','{item_bgimg}','{item_keywords}')"""
 
 
