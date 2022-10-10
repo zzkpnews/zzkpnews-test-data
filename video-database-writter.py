@@ -31,8 +31,8 @@ column_id_map = {
     '其他': 'other',
 }
 
-sql_insert_to_newsitem = """INSERT INTO news_items(news_id, creator_id, column_id, timestamp, title, citation, bgimg, keywords)
-VALUES ('{item_id}','{creator_id}','{column_id}','{item_timestamp}','{item_title}','{item_citation}','{item_bgimg}','{item_keywords}')"""
+sql_insert_to_newsitem = """INSERT INTO news_items(news_type,news_id, creator_id, column_id, timestamp, title, citation, bgimg, keywords)
+VALUES ('video','{item_id}','{creator_id}','{column_id}','{item_timestamp}','{item_title}','{item_citation}','{item_bgimg}','{item_keywords}')"""
 
 
 sql_insert_to_videos = """INSERT INTO videos(video_id, author, video_url, origin, origin_url) VALUES ('{video_id}','{author}','{video_url}','中国新闻网视频站','{origin_url}')"""
