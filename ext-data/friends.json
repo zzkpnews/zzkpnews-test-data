@@ -1,51 +1,51 @@
 [
     {
-        "name": "中华人民共和国科学技术部",
+        "title": "中华人民共和国科学技术部",
         "describe": "科技部官网",
         "url": "http://www.most.gov.cn/index.html"
     },
     {
-        "name": "人民网",
+        "title": "人民网",
         "describe": "",
         "url": "http://www.people.com.cn/"
     },
     {
-        "name": "科技新闻网",
+        "title": "科技新闻网",
         "describe": "河南科技报社官网",
         "url": "http://www.kjxww.cn/"
     },
     {
-        "name": "科学网",
+        "title": "科学网",
         "describe": "构建全球华人科学社区",
         "url": "http://www.sciencenet.cn/"
     },
     {
-        "name": "中国科技网",
+        "title": "中国科技网",
         "describe": "科技日报官方网站",
         "url": "http://stdaily.com/"
     },
     {
-        "name": "汽车情报网",
+        "title": "汽车情报网",
         "describe": "",
         "url": "http://www.autoqbz.com/index.html"
     },
     {
-        "name": "果壳网",
+        "title": "果壳网",
         "describe": "科技有意思",
         "url": "https://www.guokr.com/"
     },
     {
-        "name": "有声有色网",
+        "title": "有声有色网",
         "describe": "河南省科技摄影声像协会主办",
         "url": "http://www.kejisheying.com/"
     },
     {
-        "name": "华中师范大学",
+        "title": "华中师范大学",
         "describe": "华中师范大学官方网站",
         "url": "http://www.ccnu.edu.cn/"
     },
     {
-        "name":"西北民族大学",
+        "title":"西北民族大学",
         "describe":"西北民族大学官方网站",
         "url":"http://www.xbmu.edu.cn/frontIndex.action?siteId=1"
     }
